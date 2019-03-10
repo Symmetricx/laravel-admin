@@ -47,7 +47,7 @@ class DateRange extends Field
 
     public function render()
     {
-        $this->options['locale'] = config('app.locale');
+        $this->options['locale'] = config('admin.locale');
 
         $startOptions = json_encode($this->options);
         $endOptions = json_encode($this->options + ['useCurrent' => false]);
