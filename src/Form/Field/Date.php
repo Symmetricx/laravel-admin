@@ -34,7 +34,7 @@ class Date extends Text
     public function render()
     {
         $this->options['format'] = $this->format;
-        $this->options['locale'] = config('admin.locale');
+        $this->options['locale'] = array_key_exists('locale', $this->options) ? $this->options['locale'] : config('admin.locale');
         $this->options['allowInputToggle'] = true;
 
         $this->script = "$('{$this->getElementClassSelector()}').parent().datetimepicker(".json_encode($this->options).');';

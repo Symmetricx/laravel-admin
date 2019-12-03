@@ -26,6 +26,10 @@ trait HasPermissions
      */
     public function can($ability, $arguments = []) : bool
     {
+        if (empty($ability)) {
+            return true;
+        }
+
         if ($this->isAdministrator()) {
             return true;
         }
@@ -106,10 +110,8 @@ trait HasPermissions
      *
      * @return void
      */
-    protected static function boot()
+    protected static function bootHasPermissions()
     {
-        parent::boot();
-
         static::deleting(function ($model) {
             $model->roles()->detach();
 

@@ -87,16 +87,17 @@ class Permission extends Model
     }
 
     /**
-     * filter \r
-     * 
-     * @param string  $path
+     * filter \r.
+     *
+     * @param string $path
+     *
      * @return mixed
      */
     public function getHttpPathAttribute($path)
     {
         return str_replace("\r\n", "\n", $path);
     }
-    
+
     /**
      * If a request match the specific HTTP method and path.
      *
@@ -107,7 +108,13 @@ class Permission extends Model
      */
     protected function matchRequest(array $match, Request $request) : bool
     {
-        if (!$request->is(trim($match['path'], '/'))) {
+        if ($match['path'] == '/') {
+            $path = '/';
+        } else {
+            $path = trim($match['path'], '/');
+        }
+
+        if (!$request->is($path)) {
             return false;
         }
 
